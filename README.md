@@ -4,16 +4,18 @@ Some notes on the stuff I struggeled with learning Angular 2 (0.46)
 
 ## Adding content inside a component/directive (transclusion)
 
-The `ng-content` directive allows you to insert content insude a (custom) component very easily.
+The `ng-content` directive allows you to insert content inside a (custom) component very easily. This is similar to but much more powerful than Angular 1 translusion.
 
 #### A single content block
+
+Using 'my-component'
 ``` html
 <my-component>
   Some content
 </my-comonent>
 ```
 
-The component template:
+The 'my-component' view template:
 ``` html
 <div> Something something </div>
 <ng-content></ng-content> <!-- This is where 'Some content' will appear -->
@@ -23,6 +25,7 @@ The component template:
 
 Use the `select` property on `ng-content` to determine which part of the provided content should go where.
 
+Using 'my-component'
 ``` html
 <my-component>
   <div class="first-paragraph">Angular 2 is cool...</div>
@@ -30,7 +33,7 @@ Use the `select` property on `ng-content` to determine which part of the provide
 </my-comonent>
 ```
 
-The component template:
+The 'my-component' view template:
 ``` html
 <div> Something something </div>
   <p>
