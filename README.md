@@ -41,3 +41,44 @@ The component template:
   </p>
 <div> The end </div>
 ```
+
+## Getting a reference to a component from another component
+
+Angular 2 by default has only one-way databinding. The flow from controller to view is by data-flow, view to controller by events. Now what if you want to invoke a method on a subcomponent? How can you get a reference to a subcomponent? One way is to let the subcomponent fire an event when it is constructed, passing itself as a reference.
+
+The subcomponent - a modal dialog
+``` typescript
+@Component({...})
+@View({...})
+export class Modal implements OnInit {
+  /**
+   * Fires an event when the modal is ready with a pointer to the modal.
+   */
+  @Output('loaded') loadedEmitter: EventEmitter<Modal> = new EventEmitter<Modal>();
+  
+  onInit() {
+    this.loadedEmitter.next(this);
+  }
+}
+```
+
+The view template of App.ts
+``` html
+<modal (loaded)="modalLoaded($event)"></modal>
+<div>Other content of the App view</div>
+```
+
+App.ts, getting a reference to the modal
+``` typescript
+
+@Component({...})
+@View({...})
+export class App {
+modalLoaded(modal: Modal) {
+    this.modal = modal;
+  }
+}
+
+
+
+```
