@@ -1,6 +1,6 @@
 # ng2-notes
 
-Some notes on the stuff I struggeled with learning Angular 2 (0.46)
+Some notes on the stuff I struggeled with learning Angular 2 (beta0)
 
 ## Adding content inside a component/directive (transclusion)
 
@@ -81,7 +81,51 @@ modalLoaded(modal: Modal) {
     this.modal = modal;
   }
 }
-
-
-
 ```
+
+## Getting the (view) children of a component
+
+Suppose you're making a wizard component with child pages and you need to refer the children from the parent component.
+``` xml
+<wizard>
+  <wizard-page [label]="page1"></wizard-page>
+  <wizard-page [label]="page2"></wizard-page>
+</wizard>
+```
+
+The wizard needs to be able to do something like:
+```java
+this.activePage = wizardPages[0];
+wizardPages[0].isValid();
+[...]
+```
+
+``` java
+@Component({
+  selector: 'wizard'
+})
+@View({
+  directives: [WizardPage]
+})
+export class Wizard implements AfterViewInit {
+
+  // This is the key: viewChildrew will contain all the wizard pages.
+  @ViewChildren(WizardPage) viewChildren: QueryList<WizardPage>;
+
+  // Viewchildren (the WizardPages) are available now.
+  ngAfterViewInit() {
+    // viewChild is updated after the view has been initialized
+    for(let child of this.viewChildren.toArray()) {
+      console.log(child);
+    }
+  }
+}
+
+@Component({
+  selector: 'wizard-page'
+})
+export class WizardPage implements OnInit {
+  [...]
+}
+```
+
