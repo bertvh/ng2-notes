@@ -101,6 +101,8 @@ modalLoaded(modal: Modal) {
 
 ## Getting the (view) children of a component
 
+TODO: maybe you need the content children, see: https://angular.io/docs/ts/latest/api/core/ContentChildren-var.html and also http://stackoverflow.com/questions/34326745/whats-the-difference-between-viewchild-and-contentchild
+
 Suppose you're making a wizard component with child pages and you need to refer the children from the parent component.
 ``` xml
 <wizard>
