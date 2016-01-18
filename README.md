@@ -2,6 +2,22 @@
 
 Some notes on the stuff I struggeled with learning Angular 2 (beta0)
 
+## If This, Try That
+
+### Exception `Unexpected directive value 'undefined' on the View of component 'MyComponent'`
+
+- If your component uses a subcomponent, declared in a single file like the file below, **declare MySubcomponent first**.
+
+``` typescript
+@Component
+@View { directives: [MySubComponent]}
+export class MyComponent {}
+
+@Component
+@View
+export class MySubComponent {} // This should go first
+```
+
 ## Adding content inside a component/directive (transclusion)
 
 The `ng-content` directive allows you to insert content inside a (custom) component very easily. This is similar to but much more powerful than Angular 1 translusion.
