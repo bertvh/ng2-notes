@@ -18,6 +18,12 @@ export class MyComponent {}
 export class MySubComponent {} // This should go first
 ```
 
+### Exception `... Make sure they all have valid type or annotations ...`
+
+Try changing your injections from `constructor(private myService: MyService)` to `@Inject(forwardRef(() => MyService)) private myService: MyService`.
+
+See also: (http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html)
+
 ## Adding content inside a component/directive (transclusion)
 
 The `ng-content` directive allows you to insert content inside a (custom) component very easily. This is similar to but much more powerful than Angular 1 translusion.
