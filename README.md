@@ -153,3 +153,40 @@ export class WizardPage implements OnInit {
 }
 ```
 
+## Setting focus of an input element on load of component
+
+Suppose you have a SearchComponent that has one input element (search term input box).  You want to give focus to the search term input box every time
+the component is displayed (also when navigating away from and back to the search component through the router).
+
+The way to do this is to inject an ElementRef as a View and handle the event in the AfterViewInit callback method.
+ 
+PS if you are using inheritance (ie abstract base classes) make sure to inject the child in the component and not in the abstract base class. 
+
+``` typescript
+
+export class BaseSearchComponent {
+}
+
+
+@Component({...})
+@View({...})
+export class SearchComponent extends BaseSearchComponent implements AfterViewInit {
+
+  @ViewChild('zoekTermInput') zoekTermInput: ElementRef;
+
+  ngAfterViewInit() {
+    this.zoekTermInput.nativeElement.focus();
+  }
+
+}
+```
+
+The template should look like this :
+
+``` html
+<input type="text" #zoekTermInput
+     ...
+     autofocus
+     autocomplete="off">
+```
+
